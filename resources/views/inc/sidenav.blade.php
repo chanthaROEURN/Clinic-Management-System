@@ -15,7 +15,7 @@
         <a class="waves-effect waves-grey" href="/dashboard"><i class="material-icons">vpn_key</i>Home</a>
     </li>
     <li>
-        <a class="waves-effect waves-grey" href="/employees"><i class="material-icons">group_work</i>Patient</a>
+        <a class="waves-effect waves-grey" href="/patients"><i class="material-icons">group_work</i>Patient</a>
     </li>
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Employee;
+use App\Patient;
 use DB;
 use Carbon\Carbon;
 use PDF;
@@ -25,8 +25,8 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        $employees = Employee::Paginate(4);
-        return view('reports.index')->with('employees',$employees);
+        $patients = Patient::Paginate(4);
+        return view('reports.index')->with('patients',$patients);
     }
 
     /**
@@ -44,12 +44,12 @@ class ReportsController extends Controller
         $date_to = $request->input('date_to');
 
         /**
-         *  employees between two dates
+         *  patients between two dates
          */
-        $employees = Employee::whereBetween('join_date' ,[new Carbon($date_from),new Carbon($date_to)])->get();
+        $patients = Patient::whereBetween('join_date' ,[new Carbon($date_from),new Carbon($date_to)])->get();
 
         //generate pdf
-        $pdf = PDF::loadView('reports.report',['employees' => $employees])->setPaper('a4', 'landscape');
-        return $pdf->stream('Employee_hired_report_from_'.$date_from.'_to_'.$date_to.'.pdf');
+        $pdf = PDF::loadView('reports.report',['patients' => $patients])->setPaper('a4', 'landscape');
+        return $pdf->stream('patient_hired_report_from_'.$date_from.'_to_'.$date_to.'.pdf');
     }
 }

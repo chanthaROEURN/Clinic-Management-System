@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Employee;
+use App\Patient;
 use App\Department;
 use App\Division;
 use App\Country;
@@ -42,15 +42,15 @@ class DashboardController extends Controller
         $prev_date4 = $this->getPrevDate(4);
 
         /**
-         *  get count of employee between two given dates.
+         *  get count of patient between two given dates.
          */
-        $emp_count_1 = Employee::whereBetween('join_date',[$prev_date1,$date_current])->count();
-        $emp_count_2 = Employee::whereBetween('join_date',[$prev_date2,$prev_date1])->count();
-        $emp_count_3 = Employee::whereBetween('join_date',[$prev_date3,$prev_date2])->count();
-        $emp_count_4 = Employee::whereBetween('join_date',[$prev_date4,$prev_date3])->count();
+        $pat_count_1 = Patient::whereBetween('join_date',[$prev_date1,$date_current])->count();
+        $pat_count_2 = Patient::whereBetween('join_date',[$prev_date2,$prev_date1])->count();
+        $pat_count_3 = Patient::whereBetween('join_date',[$prev_date3,$prev_date2])->count();
+        $pat_count_4 = Patient::whereBetween('join_date',[$prev_date4,$prev_date3])->count();
 
         $t_admins = Admin::all()->count();
-        $t_employees = Employee::all()->count();
+        $t_patients = Patient::all()->count();
         $t_countries = Country::all()->count();
         $t_states = State::all()->count();
         $t_cities = City::all()->count();
@@ -61,11 +61,11 @@ class DashboardController extends Controller
 
         return view('dashboard.index')
             ->with([
-                'emp_count_1'     =>  $emp_count_1,
-                'emp_count_2'     =>  $emp_count_2,
-                'emp_count_3'     =>  $emp_count_3,
-                'emp_count_4'     =>  $emp_count_4,
-                't_employees'     =>  $t_employees,
+                'pat_count_1'     =>  $pat_count_1,
+                'pat_count_2'     =>  $pat_count_2,
+                'pat_count_3'     =>  $pat_count_3,
+                'pat_count_4'     =>  $pat_count_4,
+                't_patients'     =>  $t_patients,
                 't_countries'     =>  $t_countries,
                 't_cities'        =>  $t_cities,
                 't_states'        =>  $t_states,

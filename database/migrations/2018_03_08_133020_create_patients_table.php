@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployeesTable extends Migration
+class CreatePatientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('patients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
@@ -35,7 +35,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('division_id')->unsigned();
             $table->integer('salary_id')->unsigned();
             $table->integer('age');
-            $table->string('picture');
+            $table->string('picture')->nullable();
 
             /**
              *  Add foreign key constraints to these columns
@@ -68,6 +68,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('patients'); 
     }
 }

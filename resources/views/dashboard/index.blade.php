@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </a>
-            <a href="/employees" class="white-text">
+            <a href="/patients" class="white-text">
                 <div class="mx-20 card-panel teal lighten-1 col s8 offset-s2 m4 l4 xl2" style="width: 25%">
                     <div class="row">
                         <div class="col s7 xl7">
@@ -24,7 +24,7 @@
                             <h6 class="no-padding txt-md">Patient</h6>
                         </div>
                         <div class="col s5 xl5">
-                            <p class="no-padding center mt txt-sm">({{$t_employees}})</p>
+                            <p class="no-padding center mt txt-sm">({{$t_patients}})</p>
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
     {{-- Create the chart with javascript using canvas --}}
     <script>
         // Get Canvas element by its id
-        employee_chart = document.getElementById('employee').getContext('2d');
-        chart = new Chart(employee_chart,{
+        patient_chart = document.getElementById('patient').getContext('2d');
+        chart = new Chart(patient_chart,{
             type:'line',
             data:{
                 labels:[
@@ -69,10 +69,10 @@
                 datasets:[{
                     label:'Employment Last Four Months',
                     data:[
-                        '{{$emp_count_4}}',
-                        '{{$emp_count_3}}',
-                        '{{$emp_count_2}}',
-                        '{{$emp_count_1}}'
+                        '{{$pat_count_4}}',
+                        '{{$pat_count_3}}',
+                        '{{$pat_count_2}}',
+                        '{{$pat_count_1}}'
                     ],
                     backgroundColor: [
                         'rgba(178,235,242 ,1)'

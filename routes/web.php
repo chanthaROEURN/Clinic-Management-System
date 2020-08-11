@@ -63,9 +63,9 @@ Route::post('/states/search','StatesController@search')->name('states.search');
 /**
  *  States Route(s)
  */
-Route::resource('/employees','EmployeesController');
+Route::resource('/patients','PatientsController');
 
-Route::post('employees/search','EmployeesController@search')->name('employees.search');
+Route::post('patients/search','PatientsController@search')->name('patients.search');
 
 /**
  *  Admins Route(s)

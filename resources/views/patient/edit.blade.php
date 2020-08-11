@@ -8,41 +8,41 @@
                 </div>
                 <hr>
                 <div class="card-content">
-                    <form action="{{route('employees.update',$employee->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('patients.update',$patient->id)}}" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="input-field col s12 m6 l6 xl4 offset-xl2">
                                 <i class="material-icons prefix">person</i>
-                                <input type="text" name="first_name" id="first_name" value="{{old('first_name') ? : $employee->first_name}}">
+                                <input type="text" name="first_name" id="first_name" value="{{old('first_name') ? : $patient->first_name}}">
                                 <label for="first_name">First Name</label>
                                 <span class="{{$errors->has('first_name') ? 'helper-text red-text' : ''}}">{{$errors->first('first_name')}}</span>
                             </div>
                             <div class="input-field col s12 m6 l6 xl4">
                                 <i class="material-icons prefix">person</i>
-                                <input type="text" name="last_name" id="last_name" value="{{old('last_name') ? : $employee->last_name}}">
+                                <input type="text" name="last_name" id="last_name" value="{{old('last_name') ? : $patient->last_name}}">
                                 <label for="last_name">Last Name</label>
                                 <span class="{{$errors->has('first_name') ? 'helper-text red-text' : ''}}">{{$errors->first('first_name')}}</span>
                             </div>
                             <div class="input-field col s12 m12 l12 xl8 offset-xl2">
                                 <i class="material-icons prefix">email</i>
-                                <input type="email" name="email" id="email" value="{{old('email') ? : $employee->email}}">
+                                <input type="email" name="email" id="email" value="{{old('email') ? : $patient->email}}">
                                 <label for="email">Email</label>
                                 <span class="{{$errors->has('email') ? 'helper-text red-text' : ''}}">{{$errors->has('email') ? $errors->first('email') : ''}}</span>
                             </div>
                             <div class="input-field col s12 m6 l6 xl4 offset-xl2">
                             <i class="material-icons prefix">person_outline</i>
-                                <input type="number" name="age" id="age" value="{{old('age') ? : $employee->age}}">
+                                <input type="number" name="age" id="age" value="{{old('age') ? : $patient->age}}">
                                 <label for="age">age</label>
                                 <span class="{{$errors->has('age') ? 'helper-text red-text' : ''}}">{{$errors->has('age') ? $errors->first('age') : ''}}</span>
                             </div>
                             <div class="input-field col s12 m6 m6 xl4">
                                 <i class="material-icons prefix">contact_phone</i>
-                                <input type="number" name="phone" id="phone" value="{{old('phone') ? : $employee->phone}}">
+                                <input type="number" name="phone" id="phone" value="{{old('phone') ? : $patient->phone}}">
                                 <label for="phone">Phone</label>
                                 <span class="{{$errors->has('phone') ? 'helper-text red-text' : ''}}">{{$errors->has('phone') ? $errors->first('phone') : ''}}</span>
                             </div>
                             <div class="input-field col s12 m12 l12 xl8 offset-xl2">
                                 <i class="material-icons prefix">add_location</i>
-                                <textarea name="address" id="address" class="materialize-textarea" >{{Request::old('address') ? : $employee->address}}</textarea>
+                                <textarea name="address" id="address" class="materialize-textarea" >{{Request::old('address') ? : $patient->address}}</textarea>
                                 <label for="address">Address</label>
                                 <span class="{{$errors->has('address') ? 'helper-text red-text' : ''}}">{{$errors->has('address') ? $errors->first('address') : ''}}</span>
                             </div>
@@ -51,10 +51,10 @@
                                 <select name="gender">
                                     <option value="" disabled>Choose a gender</option>
                                     <!--
-                                        make the option active which matches the employee gender
+                                        make the option active which matches the patient gender
                                     -->
                                     @foreach($genders as $gender)
-                                        <option value="{{$gender->id}}" {{old('gender') ? 'selected' : '' }} {{ $employee->empGender==$gender ? 'selected' : '' }} >{{$gender->gender_name}}</option>
+                                        <option value="{{$gender->id}}" {{old('gender') ? 'selected' : '' }} {{ $patient->patGender==$gender ? 'selected' : '' }} >{{$gender->gender_name}}</option>
                                     @endforeach
                                 </select>
                                 <label>Gender</label>
@@ -64,7 +64,7 @@
                                 <select name="salary">
                                     <option value="" disabled>Choose a Salary</option>
                                     @foreach($salaries as $salary)
-                                        <option value="{{$salary->id}}" {{old('salary') ? 'selected' : ''}} {{ $employee->empSalary==$salary ? 'selected' : '' }} >${{$salary->s_amount}}</option>
+                                        <option value="{{$salary->id}}" {{old('salary') ? 'selected' : ''}} {{ $patient->patSalary==$salary ? 'selected' : '' }} >${{$salary->s_amount}}</option>
                                     @endforeach
                                 </select>
                                 <label>Salary</label>
@@ -74,7 +74,7 @@
                                 <select name="department">
                                     <option value="" disabled>Choose a department</option>
                                     @foreach($departments as $department)
-                                        <option value="{{$department->id}}" {{old('department') ? 'selected' : ''}} {{ $employee->empDepartment==$department ? 'selected' : '' }} >{{$department->dept_name}}</option>
+                                        <option value="{{$department->id}}" {{old('department') ? 'selected' : ''}} {{ $patient->patDepartment==$department ? 'selected' : '' }} >{{$department->dept_name}}</option>
                                     @endforeach
                                 </select>
                                 <label>Department</label>
@@ -84,7 +84,7 @@
                                 <select name="state">
                                     <option value="" disabled >Choose a State</option>
                                     @foreach($states as $state)
-                                        <option value="{{$state->id}}" {{ old('state') ? 'selected' : '' }} {{ $employee->empState==$state ? 'selected' : '' }} >{{$state->state_name}}</option>
+                                        <option value="{{$state->id}}" {{ old('state') ? 'selected' : '' }} {{ $patient->patState==$state ? 'selected' : '' }} >{{$state->state_name}}</option>
                                     @endforeach
                                 </select>
                                 <label>State</label>
@@ -94,7 +94,7 @@
                                 <select name="city">
                                     <option value="" disabled>Choose a City</option>
                                     @foreach($cities as $city)
-                                        <option value="{{$city->id}}" {{ old('city') ? 'selected' : '' }} {{ $employee->empCity==$city ? 'selected' : '' }} >{{$city->city_name}}</option>
+                                        <option value="{{$city->id}}" {{ old('city') ? 'selected' : '' }} {{ $patient->patCity==$city ? 'selected' : '' }} >{{$city->city_name}}</option>
                                     @endforeach
                                 </select>
                                 <label>City</label>
@@ -104,7 +104,7 @@
                                 <select name="country">
                                     <option value="" disabled >Choose a Country</option>
                                     @foreach($countries as $country)
-                                        <option value="{{$country->id}}" {{ $employee->empCountry==$country ? 'selected' : '' }}>{{$country->country_name}}</option>
+                                        <option value="{{$country->id}}" {{ $patient->patCountry==$country ? 'selected' : '' }}>{{$country->country_name}}</option>
                                     @endforeach
                                 </select>
                                 <label>Country</label>
@@ -112,13 +112,13 @@
                             
                             <div class="input-field col s12 m6 l6 xl4 offset-xl2">
                                 <i class="material-icons prefix">date_range</i>
-                                <input type="text" name="join_date" id="join_date" class="datepicker" value="{{Request::old('join_date') ? : $employee->join_date}}">
+                                <input type="text" name="join_date" id="join_date" class="datepicker" value="{{Request::old('join_date') ? : $patient->join_date}}">
                                 <label for="join_date">date joined</label>
                                 <span class="{{$errors->has('join_date') ? 'helper-text red-text' : ''}}">{{$errors->has('join_date') ? $errors->first('join_date') : ''}}</span>
                             </div>
                             <div class="input-field col s12 m6 l6 xl4">
                                 <i class="material-icons prefix">date_range</i>
-                                <input type="text" name="birth_date" id="birth_date" class="datepicker" value="{{Request::old('birth_date') ? : $employee->birth_date}}">
+                                <input type="text" name="birth_date" id="birth_date" class="datepicker" value="{{Request::old('birth_date') ? : $patient->birth_date}}">
                                 <label for="birth_date">Leave Date</label>
                                 <span class="{{$errors->has('birth_date') ? 'helper-text red-text' : ''}}">{{$errors->has('birth_date') ? $errors->first('birth_date') : '' }}</span>
                             </div>
@@ -127,7 +127,7 @@
                                 <select name="division">
                                     <option value="" disabled >Choose a Symptoms</option>
                                     @foreach($divisions as $division)
-                                        <option value="{{$division->id}}" {{ old('division') ? 'selected' : '' }} {{ $employee->empDivision==$division ? 'selected' : '' }} >{{$division->division_name}}</option>
+                                        <option value="{{$division->id}}" {{ old('division') ? 'selected' : '' }} {{ $patient->patDivision==$division ? 'selected' : '' }} >{{$division->division_name}}</option>
                                     @endforeach
                                 </select>
                                 <label>Symptoms</label>
@@ -138,7 +138,7 @@
                                     <input type="file" name="picture">
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" value="{{old('picture') ? : $employee->picture }}">
+                                    <input class="file-path validate" type="text" value="{{old('picture') ? : $patient->picture }}">
                                     <span class="{{$errors->has('picture') ? 'helper-text red-text' : ''}}">{{$errors->has('picture') ? $errors->first('picture') : ''}}</span>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                     </form>
                 </div>
                 <div class="card-action">
-                    <a href="/employees">Go Back</a>
+                    <a href="/patients">Go Back</a>
                 </div>
             </div>
         </div>

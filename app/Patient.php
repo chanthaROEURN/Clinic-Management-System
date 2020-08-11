@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Employee extends Model
+class Patient extends Model
 {
     use SoftDeletes;
     
@@ -18,16 +18,16 @@ class Employee extends Model
     
     /**
      *  Below all methods are creating Eloquent's One to Many (inverse) Relationships.
-     *  for example, many employees can have a same department.
+     *  for example, many patient can have a same department.
      *
      */
 
     /**
      * @return object
      */
-    public function empDepartment(){
+    public function patDepartment(){
         /**
-         *  return department which belongs to an employee.
+         *  return department which belongs to an patient.
          *  first parameter is the model and second is a
          *  foreign key.
          */
@@ -37,42 +37,42 @@ class Employee extends Model
     /**
      * @return object
      */
-    public function empDivision(){
+    public function patDivision(){
         return $this->belongsTo('App\Division','division_id');
     }
 
     /**
      * @return object
      */
-    public function empCountry(){
+    public function patCountry(){
         return $this->belongsTo('App\Country','country_id');
     }
 
     /**
      * @return object
      */
-    public function empState(){
+    public function patState(){
         return $this->belongsTo('App\State','state_id');
     }
 
     /**
      * @return object
      */
-    public function empCity(){
+    public function patCity(){
         return $this->belongsTo('App\City','city_id');
     }
 
     /**
      * @return object
      */
-    public function empSalary(){
+    public function patSalary(){
         return $this->belongsTo('App\Salary','salary_id');
     }
 
     /**
      * @return object
      */
-    public function empGender(){
+    public function patGender(){
         return $this->belongsTo('App\Gender','gender_id');
     }
 }

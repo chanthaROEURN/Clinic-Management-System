@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Employee;
+use App\Patient;
 use App\Department;
 use App\Country;
 use App\City;
@@ -14,7 +14,7 @@ use App\State;
 use App\Gender;
 use DB;
 
-class EmployeesController extends Controller
+class PatientsController extends Controller
 {
     /**
      *  Only authenticated users can access this controller
@@ -30,8 +30,8 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::Paginate(4);
-        return view('employee.index')->with('employees',$employees);
+        $patients = Patient::Paginate(4);
+        return view('patient.index')->with('patients',$patients);
     }
 
     /**
@@ -58,7 +58,7 @@ class EmployeesController extends Controller
         /**
          *  return the view with an array of all these objects
          */
-        return view('employee.create')->with([
+        return view('patient.create')->with([
             'departments'  => $departments,
             'countries'    => $countries,
             'cities'       => $cities,
@@ -95,23 +95,23 @@ class EmployeesController extends Controller
         /**
          * 
          *  Handle the image file upload which will be stored
-         *  in storage/app/public/employee_images
+         *  in storage/app/public/Patient_images
          */
         $fileNameToStore = $this->handleImageUpload($request);
 
         /**
-         *  Create new object of Employee
+         *  Create new object of Patient
          */
-        $employee = new Employee();
+        $patient = new Patient();
         
         /**
-         *  setEmployee is also a method of this controller
+         *  setPatient is also a method of this controller
          *  which i have created, so i can use it for update 
          *  method.
          */
-        $this->setEmployee($employee,$request,$fileNameToStore);
+        $this->setPatient($patient,$request,$fileNameToStore);
         
-        return redirect('/employees')->with('info','New Patient has been created!');
+        return redirect('/patients')->with('info','New Patient has been created!');
     }
 
     /**
@@ -122,8 +122,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
-        return view('employee.show')->with('employee',$employee);
+        $patient = Patient::find($id);
+        return view('patient.show')->with('patient',$patient);
     }
 
     /**
@@ -136,7 +136,7 @@ class EmployeesController extends Controller
     {
         /**
          *  this is same as create but with an existing
-         *  employee
+         *  patient
          */
         $departments  = Department::orderBy('dept_name','asc')->get();
         $countries    = Country::orderBy('country_name','asc')->get();
@@ -146,8 +146,8 @@ class EmployeesController extends Controller
         $divisions    = Division::orderBy('division_name','asc')->get();
         $genders      = Gender::orderBy('gender_name','asc')->get();
 
-        $employee = Employee::find($id);
-        return view('employee.edit')->with([
+        $patient = Patient::find($id);
+        return view('patient.edit')->with([
             'departments'  => $departments,
             'countries'    => $countries,
             'cities'       => $cities,
@@ -155,7 +155,7 @@ class EmployeesController extends Controller
             'salaries'     => $salaries,
             'divisions'    => $divisions,
             'genders'      => $genders,
-            'employee'     => $employee
+            'patient'     => $patient
         ]);
     }
 
@@ -170,23 +170,23 @@ class EmployeesController extends Controller
     {
 
         $this->validateRequest($request,$id);
-        $employee = Employee::find($id);
-        $old_picture = $employee->picture;
+        $patient = Patient::find($id);
+        $old_picture = $patient->picture;
         if($request->hasFile('picture')){
             //Upload the image
             $fileNameToStore = $this->handleImageUpload($request);
             //Delete the previous image
-            Storage::delete('public/employee_images/'.$employee->picture);
+            Storage::delete('public/patient_images/'.$patient->picture);
         }else{
             $fileNameToStore = '';
         }
         
         /**
-         *  updating an existing employee with setEmployee
+         *  updating an existing patient with setPatient
          *  method
          */
-        $this->setEmployee($employee,$request,$fileNameToStore);
-        return redirect('/employees')->with('info','Selected Patient has been updated!');
+        $this->setPatient($patient,$request,$fileNameToStore);
+        return redirect('/patients')->with('info','Selected Patient has been updated!');
     }
 
     /**
@@ -197,10 +197,10 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        $employee = Employee::find($id);
-        $employee->delete();
-        Storage::delete('public/employee_images/'.$employee->picture);
-        return redirect('/employees')->with('info','Selected Patient has been deleted!');
+        $patient = Patient::find($id);
+        $patient->delete();
+        Storage::delete('public/patient_images/'.$patient->picture);
+        return redirect('/patients')->with('info','Selected Patient has been deleted!');
     }
 
     /**
@@ -216,8 +216,8 @@ class EmployeesController extends Controller
         ]);
         $str = $request->input('search');
         $option = $request->input('options');
-        $employees = Employee::where($option, 'LIKE' , '%'.$str.'%')->Paginate(4);
-        return view('employee.index')->with(['employees' => $employees , 'search' => true ]);
+        $patients = Patient::where($option, 'LIKE' , '%'.$str.'%')->Paginate(4);
+        return view('patient.index')->with(['patients' => $patients , 'search' => true ]);
     }
 
     /**
@@ -234,7 +234,7 @@ class EmployeesController extends Controller
          *  Below in Picture validation rules we are first checking
          *  that if there is an image, if not then don't apply the
          *  validation rules. the reason we are doing this is because
-         *  if we are updating an employee but not updating the image. 
+         *  if we are updating an patient but not updating the image. 
          */
         return $this->validate($request,[
             'first_name'     =>  'required|min:3|max:50',
@@ -251,18 +251,18 @@ class EmployeesController extends Controller
             'country'        =>  'required',
             'join_date'      =>  'required',
             'birth_date'     =>  'required',
-            'email'          =>  'required|email|unique:employees,email,'.($id ? : '' ).'|max:250',
+            'email'          =>  'required|email|unique:patients,email,'.($id ? : '' ).'|max:250',
             'picture'        =>  ($request->hasFile('picture') ? 'required|image|max:1999' : '')
             /**
-             *  if we are updating an employee but not changing the
+             *  if we are updating an patient but not changing the
              *  email then this will throw a validation error saying
              *  that email should be unique. that's why we need to specify
-             *  the current employee to ignore the unique validation rule.
+             *  the current patient to ignore the unique validation rule.
              *  Above in email rules , we are using a ternary operator simply
-             *  saying that if we pass an id then it will ignore that employee
+             *  saying that if we pass an id then it will ignore that patient
              *  (which we want in update) and if id's null then it will check
-             *  every employee to be unique (which we want in create because
-             *  every employee should have a unique email).
+             *  every patient to be unique (which we want in create because
+             *  every patient should have a unique email).
              *  check the documentation for more details, 
              *  https://laravel.com/docs/5.6/validation#rule-unique 
              */
@@ -274,42 +274,42 @@ class EmployeesController extends Controller
     /**
      * Save a new resource or update an existing resource.
      *
-     * @param  App\Employee $employee
+     * @param  App\patient $patient
      * @param  \Illuminate\Http\Request  $request
      * @param  string $fileNameToStore
      * @return Boolean
      */
-    private function setEmployee(Employee $employee,Request $request,$fileNameToStore){
-        $employee->first_name   = $request->input('first_name');
-        $employee->last_name    = $request->input('last_name');
-        $employee->email        = $request->input('email');
-        $employee->age          = $request->input('age');
-        $employee->address      = $request->input('address');
-        $employee->phone        = $request->input('phone');
+    private function setPatient(Patient $patient,Request $request,$fileNameToStore){
+        $patient->first_name   = $request->input('first_name');
+        $patient->last_name    = $request->input('last_name');
+        $patient->email        = $request->input('email');
+        $patient->age          = $request->input('age');
+        $patient->address      = $request->input('address');
+        $patient->phone        = $request->input('phone');
         //Format Date then insert it to the database
-        $employee->join_date    = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('join_date'))));
+        $patient->join_date    = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('join_date'))));
         //Format Date then insert it to the database
-        $employee->birth_date   = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('birth_date'))));
-        $employee->gender_id    = $request->input('gender');
-        $employee->division_id  = $request->input('division');
-        $employee->salary_id    = $request->input('salary'); 
-        $employee->dept_id      = $request->input('department');
-        $employee->city_id      = $request->input('city');
-        $employee->state_id     = $request->input('state');
-        $employee->country_id   = $request->input('country');
+        $patient->birth_date   = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('birth_date'))));
+        $patient->gender_id    = $request->input('gender');
+        $patient->division_id  = $request->input('division');
+        $patient->salary_id    = $request->input('salary'); 
+        $patient->dept_id      = $request->input('department');
+        $patient->city_id      = $request->input('city');
+        $patient->state_id     = $request->input('state');
+        $patient->country_id   = $request->input('country');
         
         /**
          *  we are checking if there is an image
-         *  because if we are updating an employee
-         *  but not changing the employee image then
+         *  because if we are updating an patient
+         *  but not changing the patient image then
          *  it will save  '' (means null) to picture field and we don't
          *  want that. 
          */
         if($request->hasFile('picture')){
-            $employee->picture = $fileNameToStore;
+            $patient->picture = $fileNameToStore;
         }
         
-        $employee->save();
+        $patient->save();
     }
 
     /**
@@ -341,7 +341,9 @@ class EmployeesController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             
             //upload the image
-            $path = $request->file('picture')->storeAs('public/employee_images',$fileNameToStore);
+            $path = $request->file('picture')->storeAs('public/patient_images',$fileNameToStore);
+        } else {
+            $fileNameToStore = '';
         }
         /**
          *  return the file name so we can add it to database.

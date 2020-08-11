@@ -24,7 +24,7 @@ class AdminsController extends Controller
     public function index()
     {
         /**
-         *  It works the same as employeescontroller
+         *  It works the same as patientscontroller
          *  please see the comments for explaination
          *  on what's going on here.
          */

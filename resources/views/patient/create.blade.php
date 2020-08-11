@@ -8,7 +8,7 @@
                 </div>
                 <hr>
                 <div class="card-content">
-                    <form action="{{route('employees.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('patients.store')}}" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="input-field col s12 m6 l6 xl4 offset-xl2">
                                 <i class="material-icons prefix">person</i>
@@ -147,7 +147,7 @@
                     </form>
                 </div>
                 <div class="card-action">
-                    <a href="/employees">Go Back</a>
+                    <a href="/patients">Go Back</a>
                 </div>
             </div>
         </div>

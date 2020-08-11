@@ -12,7 +12,7 @@
                 </div>
                 <div class="collapsible-body">
                     <div class="row mb-0">
-                        <form action="{{route('employees.search')}}" method="POST">
+                        <form action="{{route('patients.search')}}" method="POST">
                             @csrf()
                             <div class="input-field col s12 m6 l5 xl6">
                                 <input id="search" type="text" name="search" >
@@ -39,14 +39,14 @@
         </ul>
     </div>
     {{-- Search END --}}
-        <!-- Show All Employee List as a Card -->
+        <!-- Show All patient List as a Card -->
     <div class="card">
         <div class="card-content">
             <div class="row">
                 <h5 class="pl-15 grey-text text-darken-2">Patient List</h5>
-                  <a href="{{route('employees.create')}}">
+                  <a href="{{route('patients.create')}}">
                 <button class="btn waves-effect waves-light right">Insert Patient</button></a>
-                <!-- Table that shows Employee List -->
+                <!-- Table that shows patient List -->
                 <table class="responsive-table col s12 m12 l12 xl12">
                     <thead class="grey-text text-darken-1">
                         <tr>
@@ -60,48 +60,48 @@
                         </tr>
                     </thead>
                     <tbody id="emp-table">
-                        <!-- Check if there are any employee to render in view -->
-                        @if($employees->count())
-                            @foreach($employees as $employee)
+                        <!-- Check if there are any patient to render in view -->
+                        @if($patients->count())
+                            @foreach($patients as $patient)
                                 <tr>
-                                    <td>{{$employee->id}}</td>
+                                    <td>{{$patient->id}}</td>
                                     <td>
-                                    <img class="emp-img" src="{{asset('storage/employee_images/'.$employee->picture)}}">
+                                    <img class="emp-img" src="{{asset('storage/patient_images/'.$patient->picture)}}">
                                     </td>
-                                    <td>{{$employee->first_name}} {{$employee->last_name}}</td>
-                                    <td>{{$employee->empDepartment->dept_name}}</td>
-                                    <td>{{$employee->empDivision->division_name}}</td>
-                                    <td>{{$employee->join_date}}</td>
+                                    <td>{{$patient->first_name}} {{$patient->last_name}}</td>
+                                    <td>{{$patient->patDepartment->dept_name}}</td>
+                                    <td>{{$patient->patDivision->division_name}}</td>
+                                    <td>{{$patient->join_date}}</td>
                                     <td>
-                                    <a href="{{route('employees.show',$employee->id)}}" class="btn btn-small btn-floating waves=effect waves-light teal lighten-2"><i class="material-icons">list</i></a>
+                                    <a href="{{route('patients.show',$patient->id)}}" class="btn btn-small btn-floating waves=effect waves-light teal lighten-2"><i class="material-icons">list</i></a>
                                     </td>
                                 </tr>
                             @endforeach
                             @if(isset($search))
                                 <tr>
                                     <td colspan="4">
-                                        <a href="/employees" class="right">Show All</a>
+                                        <a href="/patients" class="right">Show All</a>
                                     </td>
                                 </tr>
                             @endif
                         @else
-                            {{-- if there are no employees then show this message --}}
+                            {{-- if there are no patients then show this message --}}
                             <tr>
-                                <td colspan="5"><h6 class="grey-text text-darken-2 center">No Employees Found!</h6></td>
+                                <td colspan="5"><h6 class="grey-text text-darken-2 center">No Patients Found!</h6></td>
                             </tr>
                         @endif
                     </tbody>
                 </table>
-                <!-- employees Table END -->
+                <!-- patients Table END -->
             </div>
             <!-- Show Pagination Links -->
             <div class="center">
-                {{$employees->links('vendor.pagination.default',['paginator' => $employees])}}
+                {{$patients->links('vendor.pagination.default',['paginator' => $patients])}}
             </div>
         </div>
     </div>
     <!-- Card END -->
 </div>
-<!-- This is the button that is located at the right bottom, that navigates us to employees.create view -->
+<!-- This is the button that is located at the right bottom, that navigates us to patients.create view -->
 
 @endsection

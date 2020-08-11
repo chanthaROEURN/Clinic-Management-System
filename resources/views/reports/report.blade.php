@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="{{public_path('css/materialize.css')}}">
-        <title>Employee Management System</title>
+        <title>patient Management System</title>
         <style>
             td{
                 border-top:#9e9e9e 1px solid !important;
@@ -22,7 +22,7 @@
         </style>
     </head>
     <body>
-        <h4 class="grey-text text-darken-1 center">Employee Hired Report</h4>
+        <h4 class="grey-text text-darken-1 center">patient Hired Report</h4>
         <table>
             <thead class="grey-text text-darken-1">
                 <tr>
@@ -44,23 +44,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($employees as $employee)
+                @foreach($patients as $patient)
                     <tr>
-                        <td>{{$employee->id}}</td>
-                        <td>{{$employee->first_name}} {{$employee->last_name}}</td>
-                        <td>{{$employee->email}}</td>
-                        <td>{{$employee->phone}}</td>
-                        <td>{{$employee->empCity->zip_code}}</td>
-                        <td>{{$employee->empCountry->country_name}}</td>
-                        <td>{{$employee->empState->state_name}}</td>
-                        <td>{{$employee->empCity->city_name}}</td>
-                        <td>{{$employee->empSalary->s_amount}}</td>
-                        <td>{{$employee->empDepartment->dept_name}}</td>
-                        <td>{{$employee->empDivision->division_name}}</td>
-                        <td>{{$employee->age}}</td>
-                        <td>{{$employee->address}}</td>
-                        <td>{{$employee->join_date}}</td>
-                        <td>{{$employee->birth_date}}</td>
+                        <td>{{$patient->id}}</td>
+                        <td>{{$patient->first_name}} {{$patient->last_name}}</td>
+                        <td>{{$patient->email}}</td>
+                        <td>{{$patient->phone}}</td>
+                        <td>{{$patient->patCity->zip_code}}</td>
+                        <td>{{$patient->patCountry->country_name}}</td>
+                        <td>{{$patient->patState->state_name}}</td>
+                        <td>{{$patient->patCity->city_name}}</td>
+                        <td>{{$patient->patSalary->s_amount}}</td>
+                        <td>{{$patient->patDepartment->dept_name}}</td>
+                        <td>{{$patient->patDivision->division_name}}</td>
+                        <td>{{$patient->age}}</td>
+                        <td>{{$patient->address}}</td>
+                        <td>{{$patient->join_date}}</td>
+                        <td>{{$patient->birth_date}}</td>
                     </tr>
                 @endforeach
             </tbody>
