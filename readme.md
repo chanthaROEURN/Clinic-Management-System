@@ -1,4 +1,4 @@
-## Employee Management System
+## Clinic Management System
 This Application is using Laravel, Materialize-css version 1.0.0 alpha-4 , material icons.
 
 ### Running this web application
@@ -54,9 +54,3 @@ This Application is using Laravel, Materialize-css version 1.0.0 alpha-4 , mater
 #### Admin Credentials
 - Email :- admin@admin.com
 - Password :- Password
-
-#### ScreenShot
-
-![screen shot](https://github.com/SagarMaheshwary/Employee/blob/master/screenshot/ems.PNG)
-
-Please star the project if you like it. Thank you!

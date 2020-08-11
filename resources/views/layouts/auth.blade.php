@@ -16,7 +16,7 @@
     <footer class="page-footer gradient-bg pl-0">
         <div class="footer-copyright">
             <div class="container">
-                © 2019 Copyright Lycan King of the World
+                © 2020 Copyright UP WEB Programming2020
             </div>
         </div>
     </footer>

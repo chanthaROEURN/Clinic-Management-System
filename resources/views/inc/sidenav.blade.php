@@ -4,7 +4,7 @@
            <!--  <div class="background">
             </div> -->
             {{-- Get picture of authenicated user --}}
-            <a href="{{route('auth.show')}}"><img class="circle" src="{{ URL::to('/img/me.jpg') }}"></a>
+            <!-- <a href="{{route('auth.show')}}"><img class="circle" src="{{ URL::to('/img/me.jpg') }}"></a> -->
             {{-- Get first and last name of authenicated user --}}
             <a href="{{route('auth.show')}}"><span class="white-text name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span></a>
             {{-- Get email of authenicated user --}}
